@@ -14,3 +14,5 @@ BOT_ID = TOKEN.split(':')[0]
 SECRET_KEY = '<your SECRET_KEY>'  # django SECRET_KEY
 
 DOMAIN = 'my_domain'
+
+CERT_NAME = 'webhook_cert.pem'

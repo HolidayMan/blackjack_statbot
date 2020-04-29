@@ -1,6 +1,6 @@
-from . import bot
+from . import BOT
 
 
-@bot.message_handler(commands=['start'])
+@BOT.message_handler(commands=['start'])
 def cmd_start(message):
-    return bot.reply_to(message, 'Hello, I\'m bot!')
+    return BOT.reply_to(message, 'Hello, I\'m bot!')
