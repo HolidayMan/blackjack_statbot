@@ -28,10 +28,3 @@ def register_session(session, username, password):
      }
     url = "https://cbets.su/user/authenticate"
     response = session.post(url, data)
-
-
-# session = get_session("ebantiay", "password")
-
-# print(get_json(session))
-
-# print(get_json(session))
