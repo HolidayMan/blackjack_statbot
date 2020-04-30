@@ -19,6 +19,9 @@ class Chat(models.Model):
     name = models.CharField(max_length=64, blank=True, null=True)
     user_added = models.ForeignKey('TgUser', on_delete=models.CASCADE, related_name="chat")
 
+    def __str__(self):
+        return self.name
+
 
 class Game(models.Model):
     game_id = models.CharField(max_length=64, unique=True)
@@ -30,8 +33,14 @@ class Game(models.Model):
     p1_cards = models.CharField(max_length=64, blank=True, null=True)
     p2_cards = models.CharField(max_length=64, blank=True, null=True)
 
+    def __str__(self):
+        return self.game_id
+
 
 class GameMessage(models.Model):
     message_id = models.IntegerField()
     chats = models.ManyToManyField('Chat', related_name="game_messages")
     game = models.OneToOneField("Game", related_name="game_message", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.game
