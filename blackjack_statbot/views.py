@@ -8,6 +8,7 @@ from django.views import View
 from blackjack_statbot.settings import BASE_DIR, DOMAIN, CERT_NAME
 from bot import BOT
 import bot.bot_handlers
+from bot.business_logic.parsing import ThreadedParser
 
 WEBHOOK_SSL_CERT = os.path.join(BASE_DIR, 'webhook_cert.pem')
 
@@ -34,6 +35,10 @@ if "runserver" in sys.argv:
     import threading
 
     threading.Thread(target=BOT.polling, kwargs={"none_stop": True}).start()
-else:
+    parser = ThreadedParser('ebantiay', 'password', timeout=5)
+    parser.start_thread()
+elif 'gunicorn' in sys.argv or 'runsslserver' in sys.argv:
     BOT.remove_webhook()
     BOT.set_webhook(url=f'https://{DOMAIN}/webhook/', certificate=open(WEBHOOK_SSL_CERT, 'r'))
+    parser = ThreadedParser('ebantiay', 'password', timeout=5)
+    parser.start_thread()
