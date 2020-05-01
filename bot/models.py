@@ -39,8 +39,8 @@ class Game(models.Model):
 
 class GameMessage(models.Model):
     message_id = models.IntegerField()
-    chats = models.ManyToManyField('Chat', related_name="game_messages")
-    game = models.OneToOneField("Game", related_name="game_message", on_delete=models.CASCADE)
+    chat = models.ForeignKey('Chat', related_name="game_messages", on_delete=models.CASCADE)
+    game = models.ForeignKey("Game", related_name="game_message", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.game
