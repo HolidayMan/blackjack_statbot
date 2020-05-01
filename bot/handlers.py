@@ -1,6 +1,16 @@
 from bot import BOT
+import bot.phrases as ph
+
+# Только не бей, блятб
+"""Проеб очка №3:
+    Команды в ебучих хэндлерах! Да, понимаю, формально команды - те же хэндлеры, но мы условились бл*ть их выносить в отдельный файл.
+    А имя его - commands.py (нежданчик)
+    Что тебе нужно изменить:
+    - вынести команды в commands.py
+    - допилить диалог
+"""
 
 
-@BOT.message_handler(func=lambda message: True)
-def handle_all_messages(message):
-    BOT.reply_to(message, "Poshel nahui")
+
+
+
