@@ -2,61 +2,44 @@ from bot import BOT
 import bot.phrases as ph
 
 
-#
-    # getChatMember(chat_id, user_id)
-    # while chat.id = True
-    #     BOT.send_message(message.chat.id, "HEllo")
-    #     BOT.register_next_step_handler(message, handle_chat_message)
-    #         if :
-    #          return BOT.reply_to(message, ph.SUCCESSFULLY_ADDED_MESSAGE)
-    #         else:
-    #          return BOT.reply_to(message, ph.NOT_ADMIN_MESSAGE)
-#
-# Вас приветствует @V_ochko_bot. Бот рассылает статистику по игре в 21. Вы можете отслеживать игру здесь или добавить бота в канал, чтоб он присылал сообщения туда.
-#
-# /help
-# /addchannel - добавить канал
-# /deletechannel - удаление канала
-#
-#   /addchannel
-#   *Добавление канала*
-#
-#   1. Добавьте @V_ochko_bot в администраторы вашего канала.
-#   2. Перешлите мне любое сообщение из вашего канала (вы также можете отправить @username или Group ID.
-#
-#   #Добавляет
-#   #Присылает
-#
-#     #Если не добавляет
-#     Бот не является администратором этого канала.
-#
-#     #Добавляет
-#     #Присылает
-#
-#   Канал успешно добавлен. Сообщения из @V_ochko_bot будут публиковаться в вашем канале.
-#
-#   ***
-#
-#   /deletechannel
-#   *Удаление канла*
-#
-#   Выберите какой канал хотите удалить.
-#
-#   "Канал 1"
-#   "Канал 2"
-#
-#     #Если нет каналов
-#     Каналы не добавлены
-#
-#   #Нажимает
-#
-#   Канал успешно удалён.
-#
-#   /help
-#   Чтоб остановить рассылку нажмите /stop. Вы можете добавить свой канал и бот будет публиковать сообщения там.
-#   Чтобы добавить канал нажмите /addchannel. Чтоб бот перестал присылать сообщения в канал, нажмите /deletechannel.
-#
-#   ***
-#   /stop
-#
-#     Прекращает работу бота
+class channel:
+    def __init__ (self, name):
+        self.name = name
+        chat.id = chat_id
+        user.id = user_id
+        
+@BOT.message_handler(comands = ['addchanel'])
+def add_channel(message): 
+    msg = BOT.send_message(message, ph.ADD_CHANNEL
+    bot.register_next_step_handler(msg, process_name_step)
+    
+    
+def get_channel_id(message):
+    try:getChatMember(user,chat_id, user_id)  
+        user = User(name)
+        user_dict[chat_id] = user
+        #user_dict[chat_id] = user
+        chat_id = message.chat.id
+    except Exception: bot.reply_to(message, ph.NOT_ADMIN_MESSAGE)
+    #channel_record = MyModelName(my_field_name="Instance #1")
+    #channel_record.save
+    #bot.reply_to(message, ph.SUCCESSFULLY_ADDED_MESSAGE)
+  
+              
+@BOT.message_handler(commands = ['delete_channel'])
+def delete_channel_by_id(message):
+    try:getChatMember(user,chat_id, user_id)  
+        user = User(name)
+        user_dict[chat_id] = user
+        #user_dict[chat_id] = user
+        chat_id = message.chat.id
+    except Exception: bot.reply_to(message, ph.NO_ADDED_CHANNELS_MESSAGE)
+    #channel_record.filter(id=chat_id).delete()
+
+
+#exept Exception - временная мера, испрввлю, просто надо же что-то отлавливать. А что именно, я не ебу
+#код писался с мобилы, я просто пытался понять что я хочу от бота, ну и от жизни в целом
+#исправлю, доработаю 
+
+
+
