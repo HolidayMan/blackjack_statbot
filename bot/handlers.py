@@ -11,6 +11,5 @@ import bot.phrases as ph
 """
 
 
-
-
-
+def handle_chat_message(message):
+    BOT.send_message(message.chat.id, "POSHEL NAHUI")
