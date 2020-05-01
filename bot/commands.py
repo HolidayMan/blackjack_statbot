@@ -15,22 +15,19 @@ def cmd_start(message):
         first_name = message.chat.first_name
         username = message.chat.username
         TgUser.objects.create(tg_id=tg_id, first_name=first_name, username=username)
-    return BOT.reply_to(message, 'Hello, I\'m bot!')
+    return BOT.reply_to(message, ph.START_MESSAGE)
 
 
 @BOT.message_handler(commands=['help'])
 def cmd_help(message):
-    return BOT.send_message(message.chat.id, ph.HELP_MESSAGE)
+    return BOT.reply_to(message, ph.HELP_MESSAGE)
 
 
-@BOT.message_handler(commands=['addchannel'])  # TODO: end addchannel command
+@BOT.message_handler(commands=['addchannel'])
 def cmd_addchannel(message):
-    BOT.send_message(message.chat.id, "HEllo")
-    BOT.register_next_step_handler(message, handle_chat_message)
-    # if :
-    #   return BOT.reply_to(message, ph.SUCCESSFULLY_ADDED_MESSAGE)
-    # else:
-    #   return BOT.reply_to(message, ph.NOT_ADMIN_MESSAGE)
+    return BOT.reply_to(message, ph.ADD_CHANNEL_MESSAGE)
 
-# @BOT.message_handler(commands=['deletechannel']) # TODO: create deletechannel function
-# удалить канал (остановить расслыку для него)
+
+@BOT.message_handler(commands=['deletechannel'])
+def cmd_deletechannel(message):
+    return BOT.reply_to(message, ph.DELETE_CHANNEL_MESSAGE)
