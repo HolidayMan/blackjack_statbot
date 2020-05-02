@@ -45,7 +45,10 @@ class Sender:
         chats = Chat.objects.filter(send=True)
         for chat in chats:
             if changed:
-                message_id = GameMessage.objects.get(chat=chat, game=game_model).message_id
+                try:
+                    message_id = GameMessage.objects.get(chat=chat, game=game_model).message_id
+                except GameMessage.DoesNotExist:
+                    return
                 BOT.edit_message_text(text=self.get_message_text(game), chat_id=chat.tg_id, message_id=message_id)
 
     def send_messages(self, game):
