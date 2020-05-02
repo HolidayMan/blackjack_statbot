@@ -5,6 +5,7 @@ from bot.parser import Parser, Game
 from bot import BOT
 from bot.models import Chat, GameMessage
 from bot.models import Game as GameModel
+import re
 
 
 class ThreadedParser:
@@ -66,11 +67,13 @@ class Sender:
         else:
             get_21 = " "
 
-
-        if p1_score == 22 and p1_cards != int:
+        golden_point_pattern = r"A.( )*A."
+        if p1_score == 21 and re.match(golden_point_pattern, p1_cards):
             golden_point = " #G"
-        elif p2_score == 22 and p2_cards != int:
+            p1_score = 22
+        elif p2_score == 21 and re.match(golden_point_pattern, p2_cards):
             golden_point = " #G"
+            p2_score = 22
         else:
             golden_point = " "
 
