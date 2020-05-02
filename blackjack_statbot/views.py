@@ -40,10 +40,10 @@ if "runserver" in sys.argv:
     import threading
 
     threading.Thread(target=BOT.polling, kwargs={"none_stop": True}).start()
-    # parser = ThreadedParser(CBETS_LOGIN, CBETS_PASSWORD, timeout=5)
-    # parser.start_thread()
-    # db_cleaner = DBCleaner(15)
-    # db_cleaner.start_thread()
+    parser = ThreadedParser(CBETS_LOGIN, CBETS_PASSWORD, timeout=5)
+    parser.start_thread()
+    db_cleaner = DBCleaner(15)
+    db_cleaner.start_thread()
 elif 'gunicorn' in sys.argv or 'runsslserver' in sys.argv:
     BOT.remove_webhook()
     BOT.set_webhook(url=f'https://{DOMAIN}/webhook/', certificate=open(WEBHOOK_SSL_CERT, 'r'))

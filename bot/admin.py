@@ -10,7 +10,7 @@ class TgUserAdmin(admin.ModelAdmin):
 
 @admin.register(Chat)
 class ChatAdmin(admin.ModelAdmin):
-    list_display = ("name", "tg_id", "user_added")
+    list_display = ("name", "tg_id", "user_added", "send")
     search_fields = ('name', "user_added")
 
 
@@ -23,4 +23,4 @@ class GameAdmin(admin.ModelAdmin):
 @admin.register(GameMessage)
 class GameMessageAdmin(admin.ModelAdmin):
     list_display = ("message_id", "game")
-    search_fields = ('name', "user_added")
+    search_fields = ('game_id', "chat_id")

@@ -41,7 +41,7 @@ class Sender:
 
     def edit_messages(self, game):
         game_model, changed = self._update_or_create_game(game)
-        chats = Chat.objects.all()
+        chats = Chat.objects.filter(send=True)
         for chat in chats:
             if changed:
                 message_id = GameMessage.objects.get(chat=chat, game=game_model).message_id
@@ -49,7 +49,7 @@ class Sender:
 
     def send_messages(self, game):
         game_model = self._update_or_create_game(game)
-        chats = Chat.objects.all()
+        chats = Chat.objects.filter(send=True)
         for chat in chats:
             message = BOT.send_message(chat.tg_id, self.get_message_text(game))
             self._save_message(game_model, chat, message)

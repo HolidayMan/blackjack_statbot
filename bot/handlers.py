@@ -4,26 +4,7 @@ import bot.phrases as ph
 import telebot
 from blackjack_statbot.settings import BOT_ID
 from .models import Chat, TgUser
-
-
-"""
-  /addchannel
-  *Добавление канала*
-
-  1. Добавьте @V_ochko_bot в администраторы вашего канала.
-  2. Перешлите мне любое сообщение из вашего канала (вы также можете отправить @username или Group ID.
-
-  #Добавляет
-  #Присылает
-    
-    #Если не добавляет
-    Бот не является администратором этого канала. 
-
-    #Добавляет
-    #Присылает
-
-  Канал успешно добавлен. Сообщения из @V_ochko_bot будут публиковаться в вашем канале.
-"""
+from .keyboards import generate_delete_keyboard
 
 
 def has_message_text(message):
@@ -65,7 +46,26 @@ def handle_forwarded_message(message):
         user = TgUser.objects.get(tg_id=message.chat.id)
         chat = Chat.objects.create(tg_id=get_channel_id_from_message(message),
                                    name=get_channel_username_from_message(message),
-                                   user_added=user)
+                                   user_added=user,
+                                   send=True)
+        return BOT.send_message(message.chat.id, ph.SUCCESSFULLY_ADDED_MESSAGE)
+    elif not Chat.objects.get(tg_id=get_channel_id_from_message(message)).send:
+        chat = Chat.objects.get(tg_id=get_channel_id_from_message(message))
+        chat.send = True
+        chat.save()
         return BOT.send_message(message.chat.id, ph.SUCCESSFULLY_ADDED_MESSAGE)
     else:
         return BOT.send_message(message.chat.id, ph.CHANNEL_ALREADY_ADDED_MESSAGE)
+
+
+@BOT.callback_query_handler(lambda call: call.data.split('_')[0] == "deletechannel")
+def delete_channel(call):
+    channel_id = int(call.data.split('_')[1])
+    if Chat.objects.filter(tg_id=channel_id, send=True).exists():
+        chat = Chat.objects.get(tg_id=channel_id)
+        chat.send = False
+        chat.save()
+    keyboard = generate_delete_keyboard(call.message.chat.id)
+    if not keyboard:
+        return BOT.edit_message_text(ph.YOU_DONT_HAVE_CHANNELS, call.message.chat.id, call.message.message_id)
+    return BOT.edit_message_text(ph.DELETE_CHANNEL_MESSAGE, call.message.chat.id, call.message.message_id, reply_markup=keyboard)
