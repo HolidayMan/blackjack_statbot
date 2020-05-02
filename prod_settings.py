@@ -9,7 +9,7 @@ DATABASES = {
 }
 
 TOKEN = "<your token>"
-BOT_ID = TOKEN.split(':')[0]
+BOT_ID = int(TOKEN.split(':')[0])
 
 CBETS_LOGIN = "login"
 CBETS_PASSWORD = "password"
