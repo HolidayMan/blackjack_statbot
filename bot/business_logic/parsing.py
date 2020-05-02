@@ -18,9 +18,7 @@ class ThreadedParser:
 
     def long_parse(self, timeout=10):
         while True:
-            print("PARSING")
             for game in self.parser.get_games().games[::-1]:
-                print(game)
                 self.sender.send(game)
             sleep(timeout)
 
