@@ -3,6 +3,8 @@ import bot.phrases as ph
 from .models import TgUser
 from .handlers import handle_forwarded_message
 
+from .keyboards import generate_delete_keyboard
+
 
 def user_exists(tg_id):
     return TgUser.objects.filter(tg_id=tg_id).exists()
@@ -31,4 +33,7 @@ def cmd_addchannel(message):
 
 @BOT.message_handler(commands=['deletechannel'])
 def cmd_deletechannel(message):
-    return BOT.reply_to(message, ph.DELETE_CHANNEL_MESSAGE)
+    keyboard = generate_delete_keyboard(message.chat.id)
+    if not keyboard:
+        return BOT.send_message(message.chat.id, ph.YOU_DONT_HAVE_CHANNELS)
+    return BOT.send_message(message.chat.id, ph.DELETE_CHANNEL_MESSAGE, reply_markup=keyboard)

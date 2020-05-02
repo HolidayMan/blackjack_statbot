@@ -21,7 +21,7 @@ NOT_ADMIN_MESSAGE = "Бот не является администратором
 SUCCESSFULLY_ADDED_MESSAGE = "Канал успешно добавлен. Сообщения из @blackjack_statbot будут публиковаться в вашем канале."
 
 
-DELETE_CHANNEL_MESSAGE = "Выберите какой канал хотите удалить."
+DELETE_CHANNEL_MESSAGE = "Выберите какой канал хотите удалить:"
 
 
 NO_ADDED_CHANNELS_MESSAGE = "Каналы не добавлены."
@@ -37,3 +37,5 @@ HELP_MESSAGE = """Чтоб остановить рассылку нажмите 
 FORWARD_TO_ME_MESSAGE = "Перешлите мне сообщение из канала!"
 
 CHANNEL_ALREADY_ADDED_MESSAGE = "Этот канал уже добавлен вами или кем-то другим"
+
+YOU_DONT_HAVE_CHANNELS = "У вас нет каналов. Добавьте канал командой /addchannel"
