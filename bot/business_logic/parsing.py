@@ -56,18 +56,32 @@ class Sender:
 
     @staticmethod
     def get_message_text(game: Game):
-        p1_score, p2_score = game.score.split(':')
+        p1_score, p2_score = map(int, game.score.split(':'))
+        total = p1_score + p2_score
         p1_cards, p2_cards = game.p1_cards, game.p2_cards
         game_number = game.no
 
+        if p1_score == 21 or p2_score == 21:
+            get_21 = " #O"
+        else:
+            get_21 = " "
+
+
+        if p1_score == 22 and p1_cards != int:
+            golden_point = " #G"
+        elif p2_score == 22 and p2_cards != int:
+            golden_point = " #G"
+        else:
+            golden_point = " "
+
         if game.status == "Live":
-            message = f"#{game_number}. {p1_score}({p1_cards})⏰{p2_score}({p2_cards})"
+            message = f"#N{game_number}. {p1_score}({p1_cards})⏰{p2_score}({p2_cards})#T{total}"
         elif game.status == "Dealer":
-            message = f"#{game_number}. {p1_score}({p1_cards})-✅{p2_score}({p2_cards})"
+            message = f"#N{game_number}. {p1_score}({p1_cards})-✅{p2_score}({p2_cards})#T{total}{get_21}{golden_point}"
         elif game.status == "Player":
-            message = f"#{game_number}. ✅{p1_score}({p1_cards})-{p2_score}({p2_cards})"
+            message = f"#N{game_number}. ✅{p1_score}({p1_cards})-{p2_score}({p2_cards})#T{total}{get_21}{golden_point}"
         elif game.status == "Draw":
-            message = f"#{game_number}. {p1_score}({p1_cards})❎{p2_score}({p2_cards})"
+            message = f"#N{game_number}. {p1_score}({p1_cards})❎{p2_score}({p2_cards})#T{total} #X{get_21}{golden_point}"
         else:
             raise ValueError(f"incorrect status value '{game.status}'")
         return message
