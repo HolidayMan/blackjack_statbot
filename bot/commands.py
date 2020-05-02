@@ -1,7 +1,7 @@
 from . import BOT
 import bot.phrases as ph
 from .models import TgUser
-from .handlers import *
+from .handlers import handle_forwarded_message
 
 
 def user_exists(tg_id):
@@ -25,7 +25,8 @@ def cmd_help(message):
 
 @BOT.message_handler(commands=['addchannel'])
 def cmd_addchannel(message):
-    return BOT.reply_to(message, ph.ADD_CHANNEL_MESSAGE)
+    BOT.send_message(message.chat.id, ph.ADD_CHANNEL_MESSAGE)
+    BOT.register_next_step_handler(message, handle_forwarded_message)
 
 
 @BOT.message_handler(commands=['deletechannel'])

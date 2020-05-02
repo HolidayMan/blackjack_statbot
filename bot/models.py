@@ -43,4 +43,4 @@ class GameMessage(models.Model):
     game = models.ForeignKey("Game", related_name="game_message", on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.game
+        return f"<GameMessage {self.game.game_id}"

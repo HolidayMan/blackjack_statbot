@@ -14,13 +14,15 @@ class Parser:
         self.password = password
 
     def get_games(self, start=0, length=0):
-        return Games.de_json(self.get_json())
+        return Games.de_json(self.get_json(start, length))
 
     def get_json(self, start=0, length=10):
         url = f"https://cbets.su/stats/TwentyOne/Preloader?start={start}&length={length}"
         try:
             response = self.session.get(url)
             json_data = response.json()
+            if not json_data['data']:
+                raise AttributeError("data is empty")
         except (AttributeError, JSONDecodeError):
             self._get_session()
             return self.get_json()
